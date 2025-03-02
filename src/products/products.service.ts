@@ -55,7 +55,7 @@ export class ProductsService {
       productId: id,
     });
     return {
-      message: `Objeto con id ${id} eliminado`
+      message: `Producto con id ${id} eliminado`
     }
   }
 }
