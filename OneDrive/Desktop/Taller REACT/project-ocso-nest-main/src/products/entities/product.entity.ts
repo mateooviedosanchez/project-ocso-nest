@@ -11,8 +11,8 @@ export class Product {
         price: number;
         @Column({type: "int"})
         countSeal: number;
-        // @Column({type: "uuid"})
-        // provider: string;
-        @ManyToMany(() => Provider, (provider) => provider.products)
+        @ManyToMany(() => Provider, (provider) => provider.products, {
+                eager: true,
+        })
                 provider: Provider
 }
