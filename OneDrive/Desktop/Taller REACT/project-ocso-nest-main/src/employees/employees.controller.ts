@@ -7,10 +7,11 @@ import { Auth } from 'src/auth/decorator.ts/auth.decorator';
 import { ROLES } from 'src/auth/constants/roles.constants';
 import { Roles } from 'src/auth/decorator.ts/roles.decorator';
 import { Employee } from './entities/employee.entity';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ApiAuth } from 'src/auth/decorator.ts/api.decorator';
 
 @ApiAuth()
+@ApiTags('Employess')
 @Controller('employees')
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
