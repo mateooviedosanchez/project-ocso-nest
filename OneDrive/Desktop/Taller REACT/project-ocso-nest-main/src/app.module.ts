@@ -11,13 +11,11 @@ import { ManagersModule } from './managers/managers.module';
 import { LocationsModule } from './locations/locations.module';
 import { RegionsModule } from './regions/regions.module';
 import { AuthModule } from './auth/auth.module';
+import { EXPIRES_IN, JWT_KEY } from './auth/constants/jwt.constants';
 
 @Module({
   imports: [
-  ConfigModule.forRoot({
-    isGlobal: true,
-    envFilePath: '.env',
-  }),
+  ConfigModule.forRoot(),
   TypeOrmModule.forRoot({
     type: 'postgres',
     host: process.env.host,
