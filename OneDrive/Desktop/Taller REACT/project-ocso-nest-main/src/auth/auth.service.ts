@@ -26,4 +26,6 @@ export class AuthService {
     const token = jwt.sign(JSON.stringify(user), "SECRET KEY")
     return token;
   }
+
+  //Implimentacion de autentificacion
 }
