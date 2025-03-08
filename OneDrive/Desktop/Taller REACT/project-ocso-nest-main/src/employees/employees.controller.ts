@@ -6,10 +6,38 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { Auth } from 'src/auth/decorator.ts/auth.decorator';
 import { ROLES } from 'src/auth/constants/roles.constants';
 import { Roles } from 'src/auth/decorator.ts/roles.decorator';
+import { Employee } from './entities/employee.entity';
+import { ApiResponse } from '@nestjs/swagger';
+import { ApiAuth } from 'src/auth/decorator.ts/api.decorator';
 
+@ApiAuth()
 @Controller('employees')
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
+
+  @Auth(ROLES.MANAGER)
+  @ApiResponse({
+    status: 201,
+    example: {
+      employeeId: "UUIS",
+      employeeName: "Karlo",
+      employeeEmail: "karlo@gmail.com",
+      employeeLastName: "Paz",
+      employeePhoneNumber: "44234423",
+    } as Employee
+  })
+  @ApiResponse({
+    status: 401,
+    description: "Missing or invalid token"
+  })
+  @ApiResponse({
+    status: 403,
+    description: "Missing role"
+  })
+  @ApiResponse({
+    status: 500,
+    description: "Server error"
+  })
 
   @Auth(ROLES.MANAGER)
   @Post()
@@ -40,6 +68,12 @@ export class EmployeesController {
     id: string) 
     {
     return this.employeesService.findOne(id);
+  }
+
+  @Auth(ROLES.MANAGER)
+  @Get('/location/:id')
+  @findAllLocation(@Param('id') id: string) {
+    return this.employeesService.findByLocation(+id);
   }
 
   @Auth(ROLES.EMPLOYEE)

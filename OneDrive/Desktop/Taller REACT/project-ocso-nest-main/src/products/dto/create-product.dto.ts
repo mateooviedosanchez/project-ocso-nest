@@ -1,8 +1,8 @@
-import { IsInt, IsNumber, IsOptional, IsString, isString, IsUUID, MaxLength } from "class-validator";
+import { IsInt, IsNumber, IsObject, IsOptional, IsString, isString, IsUUID, MaxLength } from "class-validator";
 import { Product } from "../entities/product.entity";
 import { Provider } from "@nestjs/common";
 
-export class CreateProductDto {
+export class CreateProductDto extends Product {
     @IsString()
     @IsUUID("4")
     @IsOptional()
@@ -14,7 +14,6 @@ export class CreateProductDto {
     price: number;
     @IsInt()
     countSeal: number;
-    @IsString()
-    @IsUUID()
+    @IsObject()
     provider: Provider;
 }

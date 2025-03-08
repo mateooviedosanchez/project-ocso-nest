@@ -6,7 +6,9 @@ import { UserData } from 'src/auth/decorator.ts/user.decorator';
 import { User } from 'src/auth/entities/user.entity';
 import { Auth } from 'src/auth/decorator.ts/auth.decorator';
 import { ROLES } from 'src/auth/constants/roles.constants';
+import { ApiAuth } from 'src/auth/decorator.ts/api.decorator';
 
+@ApiAuth()
 @Controller('providers')
 export class ProvidersController {
   constructor(private readonly providersService: ProvidersService) {}
