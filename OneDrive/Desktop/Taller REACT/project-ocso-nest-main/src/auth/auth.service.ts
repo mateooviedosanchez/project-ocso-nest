@@ -41,5 +41,13 @@ export class AuthService {
     return token;
   }
 
-  //Implimentacion de autentificacion
+  async updateUser(userEmail: string, updateUserDto: UpdateUserDto){
+    const newUserData = await this.userRepository.preload({
+      userEmail,
+      ...updateUserDto
+    })
+    this.userRepository.save(newUserData);
+    return newUserData;
+  }
+
 }
