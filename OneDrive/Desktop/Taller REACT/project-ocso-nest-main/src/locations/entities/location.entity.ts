@@ -1,7 +1,7 @@
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Employee } from "src/employees/entities/employee.entity";
 import { Manager } from "src/managers/entities/manager.entity";
 import { Region } from "src/regions/entities/region.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { ApiProperty } from "@nestjs/swagger";
 
 @Entity()
@@ -10,7 +10,7 @@ export class Location {
     locationId: number;
 
     @ApiProperty({
-        default: "Ocso juriquilla"
+        default: "OCSO juriquilla"
     })
     @Column('text')
     locationName: string;
@@ -31,7 +31,7 @@ export class Location {
         eager: true
     })
     @JoinColumn({
-        name: "regionId"
+        name: "managerId"
     })
     manager: Manager;
 
