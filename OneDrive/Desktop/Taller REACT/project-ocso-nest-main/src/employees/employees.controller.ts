@@ -51,10 +51,11 @@ export class EmployeesController {
   @UseInterceptors(FileInterceptor('file', {
     dest: "./src/employees/employees-photos"
   }))
+
   uploadPhoto(@UploadedFile() file: Express.Multer.File){
     console.log(file);
     return "OK";
-  }
+  };
 
   @Auth(ROLES.MANAGER)
   @Get()
@@ -73,7 +74,7 @@ export class EmployeesController {
 
   @Auth(ROLES.MANAGER)
   @Get('/location/:id')
-  @findAllLocation(@Param('id') id: string) {
+  findAllLocation(@Param('id') id: string) {
     return this.employeesService.findByLocation(+id);
   }
 

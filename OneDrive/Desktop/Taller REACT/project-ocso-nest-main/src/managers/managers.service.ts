@@ -3,7 +3,9 @@ import { CreateManagerDto } from './dto/create-manager.dto';
 import { UpdateManagerDto } from './dto/update-manager.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Manager } from './entities/manager.entity';
-import { Repository } from 'typeorm';
+import { DeepPartial, Repository } from 'typeorm';
+import { Location } from 'src/locations/entities/location.entity';
+
 
 @Injectable()
 export class ManagersService {
@@ -13,7 +15,8 @@ export class ManagersService {
   ){}
 
   create(createManagerDto: CreateManagerDto) {
-    return this.managerRepository.save(createManagerDto);
+    const manager = this.managerRepository.create(createManagerDto as DeepPartial<Manager>);
+    return this.managerRepository.save(manager);
   }
 
   findAll() {
@@ -29,7 +32,8 @@ export class ManagersService {
   async  update(id: string, updateManagerDto: UpdateManagerDto) {
     const managerToUpdate = await this.managerRepository.preload({
       managerId: id,
-      ... updateManagerDto,
+      ...updateManagerDto,
+      location: updateManagerDto.location as DeepPartial<Location> | undefined,
     });
     if (!managerToUpdate) throw new BadRequestException();
     return this.managerRepository.save(managerToUpdate)

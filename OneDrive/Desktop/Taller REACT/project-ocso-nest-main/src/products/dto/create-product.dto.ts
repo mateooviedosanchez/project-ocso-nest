@@ -2,7 +2,7 @@ import { IsInt, IsNumber, IsObject, IsOptional, IsString, isString, IsUUID, MaxL
 import { Product } from "../entities/product.entity";
 import { Provider } from "@nestjs/common";
 
-export class CreateProductDto extends Product {
+export class CreateProductDto {
     @IsString()
     @IsUUID("4")
     @IsOptional()

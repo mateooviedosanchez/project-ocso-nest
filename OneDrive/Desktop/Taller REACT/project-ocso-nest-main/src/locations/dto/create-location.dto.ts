@@ -3,7 +3,7 @@ import { Location } from "../entities/location.entity";
 import { Region } from "src/regions/entities/region.entity";
 
 
-export class CreateLocationDto extends Location {
+export class CreateLocationDto {
     @IsString()
     @MaxLength(35)
     locationName: string;

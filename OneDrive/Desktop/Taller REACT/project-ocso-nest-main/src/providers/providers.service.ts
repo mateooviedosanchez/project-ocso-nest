@@ -17,7 +17,7 @@ export class ProvidersService {
   }
 
   findAll() {
-    return this.providerRepository.save(CreateProviderDto);
+    return this.providerRepository.find();
   }
 
   findOne(id: string) {
@@ -35,11 +35,14 @@ export class ProvidersService {
   }
 
   async update(id: string, updateProviderDto: UpdateProviderDto) {
-    const product = await this.providerRepository.preload({
+    const provider = await this.providerRepository.preload({
       providerId: id,
       ... updateProviderDto
     });
-    return this.providerRepository.save(product);
+    if (!provider) {
+      throw new NotFoundException(`Provider with ID ${id} not found`);
+    }
+    return this.providerRepository.save(provider);
   }
 
   remove(id: string) {
